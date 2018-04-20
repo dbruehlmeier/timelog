@@ -259,7 +259,13 @@ $('input[name="duration"]').blur(function(){
   }
   
   // Create a moment.js object (we don't use the duration object because it does not support formatted output)
-  formDuration = moment('2018-01-01 '+hours+':'+minutes, 'YYYY-MM-DD HH:mm');        
+  formDuration = moment('2018-01-01 '+hours+':'+minutes, 'YYYY-MM-DD HH:mm');
+  
+  // Durations of more than 12 hours are not allowed
+  if (formDuration.isAfter('2018-01-01 12:01:00')) {
+    $('input[name=duration]').transition('shake');
+    formDuration = moment('2018-01-01 00:00', 'YYYY-MM-DD HH:mm');
+  }
   
   // Get the formatted date (or empty if invalid)
   output = formDuration.isValid() ? formDuration.format('HH:mm') : '';
