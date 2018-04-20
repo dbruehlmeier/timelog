@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calendar</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css'>
+<link rel='stylesheet prefetch' href='https://semantic-ui.com/dist/semantic.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <div class="ui top fixed menu">
+  <div class="item">
+    <div class="ui green button">Zoho Setup</div>
+  </div>
+  <div class="item">
+    <div class="ui green button">Google Setup</div>
+  </div>
+  <div class="item">
+    <div class="ui green button">Calendar Setup</div>
+  </div>
+  <div class="right menu">
+    <div class="item">
+        <div class="ui primary button" id="btn-add">Add Timelog</div>
+    </div>
+  </div>
+</div>
+
+<div id='calendar'></div>
+
+<div class="ui modal" id="modal-timelog">
+  <i class="close icon"></i>
+  <div class="header">Time Log</div>
+  <div class="content">
+    <form class="ui form" id="frm-timelog">
+      <div class="field">
+        <label>Task</label>
+        <div class="ui fluid search selection dropdown" id="dropdown-tasks">
+          <div class="text"></div>
+          <i class="dropdown icon"></i>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label>Description</label>
+        <input type="text" name="description" placeholder="Description">
+      </div>
+
+      <div class="ui grid">
+        <div class="four wide column">
+          <div class="field">
+            <label>Date</label>
+            <div class="ui left icon input">
+              <input type="text" name="date">
+              <i class="calendar icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="three wide column">
+          <div class="field">
+            <label>Time</label>
+              <div class="ui left icon input">
+              <input type="text" name="time">
+              <i class="clock icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="three wide column">
+          <div class="field">
+            <label>Duration</label>
+            <div class="ui right labeled input">
+              <input type="text" name="duration">
+              <div class="ui basic label">h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="ui grid">
+        <div class="left floated six wide column">
+          <div class="field">
+            <label>Billable</label>
+            <div class="ui checkbox">
+              <input type="checkbox" name="billable">
+              <label>Bill to customer</label>
+            </div>
+          </div>
+        </div>
+        <div class="right floated six wide column">
+          <p></p>
+          <div class="actions">
+            <div class="ui right floated primary submit button">Save</div>
+            <div class="ui right floated cancel button">Cancel</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://semantic-ui.com/dist/semantic.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/de-ch.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
