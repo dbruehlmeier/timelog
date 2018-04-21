@@ -109,19 +109,22 @@ $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects
       value: entry.id
     });
   });
-  alert(JSON.stringify(myVal));
-});
-alert(JSON.stringify(myVal));
-myVal.sort(sortTasks);
-alert(JSON.stringify(myVal));
-$('#dropdown-tasks')
+  myVal.sort(sortTasks);
+  
+  $('#dropdown-tasks')
   .dropdown({
     values: myVal,
     placeholder: 'Select Task',
     showOnFocus: false,
     fullTextSearch: true,
     sortSelect: true
-  })
+  });
+  
+});
+
+
+
+
 
 $('#frm-timelog')
   .form({
