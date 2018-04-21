@@ -1,1 +1,2 @@
 /zoho-api/*  https://projectsapi.zoho.eu/restapi/:splat  200
+/zoho-auth/  https://accounts.zoho.eu/apiauthtoken/create?SCOPE=ZohoProjects/projectsapi,ZohoPC/docsapi  200
