@@ -77,28 +77,6 @@ $('#btn-add').click(function() {
 });
 
 var myVal = [];
-var i;
-for (i = 1; i < 4 ; i++) { 
-  myVal.push({
-        name: 'Task ' + i,
-        value: i
-  });
-}
-
-myVal.push({
-  name: 'Tactical (Behind the Scenes | Pulse)',
-  value: 9000
-});
-
-myVal.push({
-  name: 'Gesamtprojektleitung (Swiss Life, Tessinerplatz 7 | Phase 3: Evaluate)',
-  value: 9001
-});
-
-myVal.push({
-  name: 'XTest (Project | Tasklist)',
-  value: 9002
-});
 
 $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
   data.projects.forEach(function(entry) {
