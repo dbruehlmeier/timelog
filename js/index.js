@@ -1,10 +1,3 @@
-$.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
-  //alert(JSON.stringify(data.projects));
-  data.projects.forEach(function(entry) {
-    alert(entry.name);
-});
-});
-
 $(function() {
   $('#calendar').fullCalendar({
     defaultView: 'agendaWeek',
@@ -107,12 +100,15 @@ myVal.push({
   value: 9002
 });
 
-//alert(JSON.stringify(myVal));
-/*
-$.getJSON("https://api.github.com/users/jeresig?authtoken=bf97913da8a83b9bbccaa87e66242727&callback=?",function(json){
-  alert(JSON.stringify(json));
+$.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
+  data.projects.forEach(function(entry) {
+    //alert(entry.name);
+    myVal.push({
+      name: entry.name,
+      value: entri.id
+    });
+  });
 });
-*/
 
 myVal.sort(sortTasks);
 $('#dropdown-tasks')
