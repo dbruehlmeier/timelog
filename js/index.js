@@ -102,7 +102,8 @@ myVal.push({
 
 $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
   data.projects.forEach(function(entry) {
-    //alert(entry.name);
+    alert(entry.name);
+    alert(entry.id);
     myVal.push({
       name: entry.name,
       value: entry.id
