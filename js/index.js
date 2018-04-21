@@ -1,3 +1,7 @@
+$.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/users/?authtoken=bf97913da8a83b9bbccaa87e66242727", function( data ) {
+  alert(JSON.stringify(data));
+});
+
 $(function() {
   $('#calendar').fullCalendar({
     defaultView: 'agendaWeek',
