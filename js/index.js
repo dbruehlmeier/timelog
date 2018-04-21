@@ -109,6 +109,7 @@ $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects
       value: entry.id
     });
   });
+  alert(JSON.stringify(myVal));
 });
 alert(JSON.stringify(myVal));
 myVal.sort(sortTasks);
