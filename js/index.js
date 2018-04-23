@@ -260,8 +260,3 @@ $('input[name="duration"]').blur(function(){
   // Call validation to make invalid input visible
   $('#frm-timelog').form('validate field', 'duration');
 });
-
-// Sort function for tasks. Uses task.name to sort
-function sortTasks(a, b) {
-  return (a.name).localeCompare(b.name);
-}
