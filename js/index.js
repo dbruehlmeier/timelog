@@ -80,16 +80,16 @@ $('#btn-add').click(function() {
 var taskDropdown = [];
 
 $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
-  projectArr.projects.forEach(function(entry) {
-    $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+entry.id+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=20062563695&status=all&time=all&priority=all", function( taskArr ) {
+  projectArr.projects.forEach(function(projectEntry) {
+    $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+projectEntry.id+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=20062563695&status=all&time=all&priority=all", function( taskArr ) {
       
       // Build the array
-      taskArr.tasks.forEach(
+      taskArr.tasks.forEach(function(taskEntry) {
         taskDropdown.push({
-        	name: entry.name,
-          value: entry.id
+        	name: taskEntry.name,
+          value: taskEntry.id
         });
-      );
+      });
       
       // Sort the array
       taskDropdown.sort(function (a,b) {
