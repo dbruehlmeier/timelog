@@ -83,7 +83,7 @@ $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects
   projectArr.projects.forEach(function(projectEntry) {
     JSON.stringify(projectEntry);
     $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+projectEntry.id+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=20062563695&status=all&time=all&priority=all", function( taskArr ) {
-      JSON.stringify(taskArr);
+      alert(JSON.stringify(taskArr));
     });
   });
 });
