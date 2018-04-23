@@ -76,22 +76,23 @@ $('#btn-add').click(function() {
   $('#modal-timelog').modal('show');
 });
 
-var myVal = [];
+// Get projects and tasks
+var taskDropdown = [];
 
 $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
   data.projects.forEach(function(entry) {
     //alert(entry.name);
     //alert(entry.id);
-    myVal.push({
+    taskDropdown.push({
       name: entry.name,
       value: entry.id
     });
   });
-  myVal.sort(sortTasks);
+  taskDropdown.sort(sortTasks);
   
   $('#dropdown-tasks')
   .dropdown({
-    values: myVal,
+    values: taskDropdown,
     placeholder: 'Select Task',
     showOnFocus: false,
     fullTextSearch: true,
