@@ -81,7 +81,7 @@ var taskDropdown = [];
 
 $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
   projectArr.projects.forEach(function(projectEntry) {
-    JSON.stringify(projectEntry);
+    alert(JSON.stringify(projectEntry));
     $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+projectEntry.id+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( taskArr ) {
       alert(JSON.stringify(taskArr));
     });
