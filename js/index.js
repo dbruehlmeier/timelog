@@ -81,14 +81,13 @@ var taskDropdown = [];
 
 $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
   data.projects.forEach(function(entry) {
-    //alert(entry.name);
-    //alert(entry.id);
     taskDropdown.push({
       name: entry.name,
       value: entry.id
     });
   });
-  taskDropdown.sort(sortTasks);
+  taskDropdown.sort(function (a,b) {return (a.name).localeCompare(b.name));
+}});
   
   $('#dropdown-tasks')
   .dropdown({
@@ -100,9 +99,6 @@ $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects
   });
   
 });
-
-
-
 
 
 $('#frm-timelog')
