@@ -79,25 +79,35 @@ $('#btn-add').click(function() {
 // Get projects and tasks
 var taskDropdown = [];
 
-$.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
-  data.projects.forEach(function(entry) {
-    taskDropdown.push({
-      name: entry.name,
-      value: entry.id
+$.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
+  projectArr.projects.forEach(function(entry) {
+    $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+entry.id+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=20062563695&status=all&time=all&priority=all", function( taskArr ) {
+      
+      // Build the array
+      taskArr.tasks.forEach(
+        taskDropdown.push({
+        	name: entry.name,
+          value: entry.id
+        });
+      );
+      
+      // Sort the array
+      taskDropdown.sort(function (a,b) {
+      	return (a.name).localeCompare(b.name);
+      )};
+      
+      // Assign the array to the dropdown
+      $('#dropdown-tasks')
+      .dropdown({
+        values: taskDropdown,
+        placeholder: 'Select Task',
+        showOnFocus: false,
+        fullTextSearch: true,
+        sortSelect: true
+      });
+      
     });
   });
-  taskDropdown.sort(function (a,b) {return (a.name).localeCompare(b.name));
-}});
-  
-  $('#dropdown-tasks')
-  .dropdown({
-    values: taskDropdown,
-    placeholder: 'Select Task',
-    showOnFocus: false,
-    fullTextSearch: true,
-    sortSelect: true
-  });
-  
 });
 
 
