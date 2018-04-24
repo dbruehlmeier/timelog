@@ -88,38 +88,38 @@ $('#btn-refresh').click(function() {
 
 // Gets Zoho projects. First tries to fetch the projects from cache (localStorage), then gets projects from Zoho via REST
 function getZohoProjects() {
-  var zohoProjects;
+  var output = Array();
   
   if(!localStorage.getItem(zohoProjectsKey)) {
-    $.getJSON( zohoBaseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
-      zohoProjects = projectArr;
-      localStorage.setItem(zohoProjectsKey, JSON.stringify(projectArr));
+    $.getJSON( zohoBaseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
+      output = data;
+      localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
     });
   } else {
-  	zohoProjects = JSON.parse(localStorage.getItem(zohoProjectsKey));
+  	output = JSON.parse(localStorage.getItem(zohoProjectsKey));
   }
   
-  return zohoProjects;
+  return output;
 }
 
 // Gets Zoho tasks. First tries to fetch the task from cache (localStorage), then gets the task from Zoho via REST
 function getZohoTask(zohoTaskId) {
-  var zohoTask;
+  var output = Array();
   
   if (!zohoTaskId) {
-  	return zohoTask;
+  	return output;
   }
   
   if(!localStorage.getItem(zohoTaskKey+'.'+zohoTaskId)) {
-    $.getJSON( zohoBaseUrl+"projects/"+zohoTaskId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( taskArr ) {
-      zohoTask = taskArr;
-      localStorage.setItem(zohoTaskKey+'.'+zohoTaskId, JSON.stringify(taskArr));
+    $.getJSON( zohoBaseUrl+"projects/"+zohoTaskId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
+      output = data;
+      localStorage.setItem(zohoTaskKey+'.'+zohoTaskId, JSON.stringify(data));
     });
   } else {
-  	zohoTask = JSON.parse(localStorage.getItem(zohoTaskKey+'.'+zohoTaskId));
+  	output = JSON.parse(localStorage.getItem(zohoTaskKey+'.'+zohoTaskId));
   }
   
-  return zohoTask;
+  return output;
 }
 
 
