@@ -84,10 +84,10 @@ $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects
     //alert(JSON.stringify(projectEntry));
     //alert("Project: "+projectEntry.name+" | ID: "+projectEntry.id_string);
     var taskUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+projectEntry.id_string+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all";
-    //alert(taskUrl);
+    
     $.getJSON( taskUrl, function( taskArr ) {
-      alert(JSON.stringify(taskArr));
-    }).done(function(){alert("done");})
+      //alert(JSON.stringify(taskArr));
+    }).fail(function(){alert(taskUrl);})
   });
 });
 
