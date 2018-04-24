@@ -81,10 +81,10 @@ $('#btn-add').click(function() {
 
 // Get projects
 $('#btn-refresh').click(function() {
-  getZohoProjects();
-  alert('prj');
+  var myPrj = getZohoProjects();
+  alert(JSON.stringify(myPrj));
   var myTask = getZohoTask('21131000000007075');
-  alert(JSON.stringify(myTask));
+  //alert(JSON.stringify(myTask));
 });
 
 
