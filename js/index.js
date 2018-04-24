@@ -73,6 +73,7 @@ const regexTime = /^\d{1,2}[:]\d{1,2}$/;
 const regexDate = /^\d{1,2}[.]\d{1,2}[.](?:\d{4}|\d{2})$/;
 const zohoBaseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
 const zohoProjectsKey = 'zoho-projects';
+const zohoTaskKey = 'zoho-task';
 
 $('#btn-add').click(function() {
   $('#modal-timelog').modal('show');
@@ -81,6 +82,7 @@ $('#btn-add').click(function() {
 // Get projects
 $('#btn-refresh').click(function() {
   getZohoProjects();
+  getZohoTask(21131000000146086);
 });
 
 
@@ -98,6 +100,26 @@ function getZohoProjects() {
   }
   
   return zohoProjects;
+}
+
+// Gets Zoho tasks. First tries to fetch the task from cache (localStorage), then gets the task from Zoho via REST
+function getZohoTask(zohoTaskId) {
+  var zohoTask;
+  
+  if (!zohoTaskId) {
+  	return zohoTask;
+  }
+  
+  if(!localStorage.getItem(zohoTaskKey+'.'zohoTaskId)) {
+    $.getJSON( zohoBaseUrl+"projects/"+zohoTaskId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( taskArr ) {
+      zohoTask = taskArr;
+      localStorage.setItem((zohoTaskKey+'.'zohoTaskId, JSON.stringify(taskArr));
+    });
+  } else {
+  	zohoTask = JSON.parse(localStorage.getItem(zohoTaskKey+'.'zohoTaskId));
+  }
+  
+  return zohoTask;
 }
 
 
