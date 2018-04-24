@@ -82,9 +82,9 @@ var taskDropdown = [];
 $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
   projectArr.projects.forEach(function(projectEntry) {
     //alert(JSON.stringify(projectEntry));
-    alert("Project: "+projectEntry.name+" | ID: "+projectEntry.id_string);
+    //alert("Project: "+projectEntry.name+" | ID: "+projectEntry.id_string);
     var taskUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+projectEntry.id_string+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all";
-    alert(taskUrl);
+    //alert(taskUrl);
     $.getJSON( taskUrl, function( taskArr ) {
       alert(JSON.stringify(taskArr));
     }).done(function(){alert("done");})
