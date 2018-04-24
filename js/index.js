@@ -71,6 +71,8 @@ $(function() {
 const regexDuration = /^\d*([:]?|[.])?\d+$/;
 const regexTime = /^\d{1,2}[:]\d{1,2}$/;
 const regexDate = /^\d{1,2}[.]\d{1,2}[.](?:\d{4}|\d{2})$/;
+const zohoBaseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
+const zohoProjectsKey = 'zoho-projects';
 
 $('#btn-add').click(function() {
   $('#modal-timelog').modal('show');
@@ -78,13 +80,16 @@ $('#btn-add').click(function() {
 
 // Get projects
 $('#btn-refresh').click(function() {
-  const baseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
-  const zohoProjectsKey = 'zoho-projects';
+  getZohoProjects();
+});
+
+
+// Gets Zoho projects. First tries to fetch the projects from cache (localStorage), then gets projects from Zoho via REST
+function getZohoProjects() {
   var zohoProjects;
   
-  // Cache Zoho projects
   if(!localStorage.getItem(zohoProjectsKey)) {
-    $.getJSON( baseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
+    $.getJSON( zohoBaseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
       zohoProjects = projectArr;
       localStorage.setItem(zohoProjectsKey, JSON.stringify(projectArr));
     });
@@ -92,7 +97,8 @@ $('#btn-refresh').click(function() {
   	zohoProjects = JSON.parse(localStorage.getItem(zohoProjectsKey));
   }
   
-});
+  return zohoProjects;
+}
 
 
 $('#frm-timelog')
