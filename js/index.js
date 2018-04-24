@@ -81,9 +81,12 @@ $('#btn-add').click(function() {
 
 // Get projects
 $('#btn-refresh').click(function() {
-  var myPrj = getZohoProjects();
-  alert(JSON.stringify(myPrj));
-  var myTask = getZohoTask('21131000000007075');
+  var allProjects = getZohoProjects();
+  allProjects.projects.forEach(function(element) {
+    alert(element.id_string);
+  });
+  //alert(JSON.stringify(myPrj));
+ // var myTask = getZohoTask('21131000000007075');
   //alert(JSON.stringify(myTask));
 });
 
