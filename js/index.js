@@ -109,17 +109,17 @@ function getZohoProjects() {
   return output;
 }
 
-// Gets Zoho tasks. First tries to fetch the task from cache (localStorage), then gets the task from Zoho via REST
-function getZohoTask(zohoTaskId) {
+// Gets Zoho tasks for a project. First tries to fetch the task from cache (localStorage), then gets the task from Zoho via REST
+function getZohoTasks(zohoProjectId) {
   var output = Array();
-  var storageId = zohoTaskKey+'.'+zohoTaskId;
+  var storageId = zohoTaskKey+'.'+zohoProjectId;
   
-  if (!zohoTaskId) {
+  if (!zohoProjectId) {
       return output;
   }
   
   if(!localStorage.getItem(storageId)) {
-    $.getJSON( zohoBaseUrl+"projects/"+zohoTaskId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
+    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
       output = data;
       localStorage.setItem(storageId, JSON.stringify(data));
     });
