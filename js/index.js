@@ -87,7 +87,7 @@ $.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects
     alert(taskUrl);
     $.getJSON( taskUrl, function( taskArr ) {
       alert(JSON.stringify(taskArr));
-    }).done()
+    }).done(function(){alert("done");})
   });
 });
 
