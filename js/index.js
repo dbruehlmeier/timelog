@@ -110,13 +110,13 @@ function getZohoTask(zohoTaskId) {
   	return zohoTask;
   }
   
-  if(!localStorage.getItem(zohoTaskKey+'.'zohoTaskId)) {
+  if(!localStorage.getItem(zohoTaskKey+'.'+zohoTaskId)) {
     $.getJSON( zohoBaseUrl+"projects/"+zohoTaskId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( taskArr ) {
       zohoTask = taskArr;
-      localStorage.setItem((zohoTaskKey+'.'zohoTaskId, JSON.stringify(taskArr));
+      localStorage.setItem((zohoTaskKey+'.'+zohoTaskId, JSON.stringify(taskArr));
     });
   } else {
-  	zohoTask = JSON.parse(localStorage.getItem(zohoTaskKey+'.'zohoTaskId));
+  	zohoTask = JSON.parse(localStorage.getItem(zohoTaskKey+'.'+zohoTaskId));
   }
   
   return zohoTask;
