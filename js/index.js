@@ -83,6 +83,7 @@ $('#btn-add').click(function() {
 $('#btn-refresh').click(function() {
   getZohoProjects();
   getZohoTask('21131000000007075');
+  alert(JSON.stringify(localStorage));
 });
 
 
@@ -105,18 +106,19 @@ function getZohoProjects() {
 // Gets Zoho tasks. First tries to fetch the task from cache (localStorage), then gets the task from Zoho via REST
 function getZohoTask(zohoTaskId) {
   var output = Array();
+  var storageId = zohoTaskKey+'.'+zohoTaskId;
   
   if (!zohoTaskId) {
-  	return output;
+      return output;
   }
   
-  if(!localStorage.getItem(zohoTaskKey+'.'+zohoTaskId)) {
+  if(!localStorage.getItem(itemId)) {
     $.getJSON( zohoBaseUrl+"projects/"+zohoTaskId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
       output = data;
-      localStorage.setItem(zohoTaskKey+'.'+zohoTaskId, JSON.stringify(data));
+      localStorage.setItem(storageId, JSON.stringify(data));
     });
   } else {
-  	output = JSON.parse(localStorage.getItem(zohoTaskKey+'.'+zohoTaskId));
+  	output = JSON.parse(localStorage.getItem(storageId));
   }
   
   return output;
