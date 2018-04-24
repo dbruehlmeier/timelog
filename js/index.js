@@ -76,7 +76,7 @@ $('#btn-add').click(function() {
   $('#modal-timelog').modal('show');
 });
 
-// Get projects and tasks
+// Get projects and tasks.
 $('#btn-refresh').click(function() {
   const baseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
   var taskDropdown = [];
