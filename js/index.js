@@ -85,7 +85,7 @@ $('#btn-refresh').click(function() {
   allProjects.projects.forEach(function(element) {
     allTasks = getZohoTasks(element.id_string);
     //alert(JSON.stringify(allTasks));
-    alert(element.id_string);
+    //alert(element.id_string);
   });
   //alert(JSON.stringify(myPrj));
  // var myTask = getZohoTask('21131000000007075');
@@ -117,6 +117,8 @@ function getZohoTasks(zohoProjectId) {
   if (!zohoProjectId) {
       return output;
   }
+  
+  alert(zohoProjectId);
   
   if(!localStorage.getItem(storageId)) {
     $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
