@@ -77,14 +77,12 @@ $('#btn-add').click(function() {
 });
 
 // Get projects and tasks
+const baseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
 var taskDropdown = [];
 
-$.getJSON( "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
+$.getJSON( baseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( projectArr ) {
   projectArr.projects.forEach(function(projectEntry) {
-    //alert(JSON.stringify(projectEntry));
-    //alert("Project: "+projectEntry.name+" | ID: "+projectEntry.id_string);
-    var taskUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/9"+projectEntry.id_string+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all";
-    
+    var taskUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/projects/"+projectEntry.id_string+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all";
     $.getJSON( taskUrl, function( taskArr ) {
       //alert(JSON.stringify(taskArr));
     }).fail(function(){alert(taskUrl);})
