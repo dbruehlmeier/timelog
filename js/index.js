@@ -82,7 +82,7 @@ $('#btn-add').click(function() {
 // Get projects
 $('#btn-refresh').click(function() {
   getZohoProjects();
-  getZohoTask(21131000000007075);
+  getZohoTask('21131000000007075');
 });
 
 
