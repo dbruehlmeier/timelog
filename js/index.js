@@ -97,7 +97,7 @@ function getZohoProjects() {
       localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
     });
   } else {
-  	output = JSON.parse(localStorage.getItem(zohoProjectsKey));
+    output = JSON.parse(localStorage.getItem(zohoProjectsKey));
   }
   
   return output;
@@ -118,7 +118,7 @@ function getZohoTask(zohoTaskId) {
       localStorage.setItem(storageId, JSON.stringify(data));
     });
   } else {
-  	output = JSON.parse(localStorage.getItem(storageId));
+    output = JSON.parse(localStorage.getItem(storageId));
   }
   
   return output;
