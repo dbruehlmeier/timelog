@@ -83,7 +83,8 @@ $('#btn-add').click(function() {
 $('#btn-refresh').click(function() {
   var allProjects = getZohoProjects();
   allProjects.projects.forEach(function(element) {
-    alert(element.id_string);
+    allTasks = getZohoTask(element.id_string);
+    alert(JSON.stringify(allTasks));
   });
   //alert(JSON.stringify(myPrj));
  // var myTask = getZohoTask('21131000000007075');
