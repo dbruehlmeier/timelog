@@ -113,7 +113,7 @@ function getZohoTask(zohoTaskId) {
       return output;
   }
   
-  if(!localStorage.getItem(itemId)) {
+  if(!localStorage.getItem(storageId)) {
     $.getJSON( zohoBaseUrl+"projects/"+zohoTaskId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
       output = data;
       localStorage.setItem(storageId, JSON.stringify(data));
