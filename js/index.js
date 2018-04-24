@@ -83,7 +83,7 @@ $('#btn-add').click(function() {
 $('#btn-refresh').click(function() {
   getZohoProjects();
   alert('prj');
-  //getZohoTask('21131000000007075');
+  getZohoTask('21131000000007075');
   alert(JSON.stringify(localStorage.getItem(zohoProjectsKey)));
 });
 
