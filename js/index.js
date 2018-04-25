@@ -74,6 +74,7 @@ const regexDate = /^\d{1,2}[.]\d{1,2}[.](?:\d{4}|\d{2})$/;
 const zohoBaseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
 const zohoProjectsKey = "zoho-projects";
 const zohoTaskKey = "zoho-task";
+var taskListDropdown = [];
 
 $("#btn-add").click(function() {
   $("#modal-timelog").modal("show");
@@ -81,16 +82,60 @@ $("#btn-add").click(function() {
 
 // Get projects
 $("#btn-refresh").click(function() {
-  var allProjects = getZohoProjects();
-  allProjects.projects.forEach(function(element) {
-    allTasks = getZohoTasks(element.id_string);
-    //alert(JSON.stringify(allTasks));
-    //alert(element.id_string);
-  });
-  //alert(JSON.stringify(myPrj));
- // var myTask = getZohoTask("21131000000007075");
-  //alert(JSON.stringify(myTask));
+  getTaskEntries();
 });
+
+function getTaskEntries() {
+  if(localStorage.getItem(zohoProjectsKey)) {
+    zohoProjects = JSON.parse(localStorage.getItem(zohoProjectsKey));
+    getTasksFromZoho(zohoProjects);
+  } else {
+    $.getJSON( zohoBaseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
+      localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
+      getTasksFromZoho(data);
+    });
+  }
+}
+
+function getTasksFromZoho(zohoProjectsArray) {
+  if(!Array.isArray(zohoProjectsArray)) { return; }
+  zohoProjectsArray.projects.forEach(function(element) {
+    getZohoTasksForProject(element.id_string);
+  });
+}
+
+function getZohoTasksForProject(zohoProjectId) {
+  if (!zohoProjectId) { return; }
+  var storageId = zohoTaskKey+"."+zohoProjectId;
+
+  if(localStorage.getItem(storageId)) {
+    zohoTasks = JSON.parse(localStorage.getItem(storageId));
+    updateTaskList(zohoTasks);
+  } else {
+    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
+      localStorage.setItem(storageId, JSON.stringify(data));
+      updateTaskList(data);
+    });
+  }
+}
+
+function updateTaskList(zohoTasksArray) {
+  if(!Array.isArray(zohoTasksArray)) { return; }
+  zohoTasksArray.tasks.forEach(function(element) {
+    taskListDropdown.push({
+      name: element.name,
+      value: element.id_string
+    });
+  });
+  
+  $('#dropdown-tasks').dropdown({
+    values: taskListDropdown,
+    placeholder: 'Select Task',
+    showOnFocus: false,
+    fullTextSearch: true,
+    sortSelect: true
+  })
+}
 
 
 // Gets Zoho projects. First tries to fetch the projects from cache (localStorage), then gets projects from Zoho via REST
@@ -108,32 +153,6 @@ function getZohoProjects() {
   
   return output;
 }
-
-// Gets Zoho tasks for a project. First tries to fetch the task from cache (localStorage), then gets the task from Zoho via REST
-function getZohoTasks(zohoProjectId) {
-  var output = Array();
-  var storageId = zohoTaskKey+"."+zohoProjectId;
-  
-  if (!zohoProjectId) {
-      return output;
-  }
-  
-  alert(zohoProjectId);
-  
-  if(!localStorage.getItem(storageId)) {
-    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
-      output = data;
-      localStorage.setItem(storageId, JSON.stringify(data));
-    });
-  } else {
-    output = JSON.parse(localStorage.getItem(storageId));
-  }
-  
-  alert(JSON.stringify(output));
-  
-  return output;
-}
-
 
 $("#frm-timelog")
   .form({
