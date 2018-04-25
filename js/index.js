@@ -98,10 +98,11 @@ function getTaskEntries() {
 }
 
 function getTasksFromZoho(zohoProjectsArray) {
-  if(!Array.isArray(zohoProjectsArray)) { return; }
-  zohoProjectsArray.projects.forEach(function(element) {
-    getZohoTasksForProject(element.id_string);
-  });
+  if(Array.isArray(zohoProjectsArray)) {
+    zohoProjectsArray.projects.forEach(function(element) {
+      getZohoTasksForProject(element.id_string);
+    });
+  }
 }
 
 function getZohoTasksForProject(zohoProjectId) {
@@ -120,13 +121,14 @@ function getZohoTasksForProject(zohoProjectId) {
 }
 
 function updateTaskList(zohoTasksArray) {
-  if(!Array.isArray(zohoTasksArray)) { return; }
-  zohoTasksArray.tasks.forEach(function(element) {
-    taskListDropdown.push({
-      name: element.name,
-      value: element.id_string
+  if(Array.isArray(zohoTasksArray)) {
+    zohoTasksArray.tasks.forEach(function(element) {
+      taskListDropdown.push({
+        name: element.name,
+        value: element.id_string
+      });
     });
-  });
+  }
   
   $('#dropdown-tasks').dropdown({
     values: taskListDropdown,
