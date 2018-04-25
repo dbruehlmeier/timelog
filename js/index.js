@@ -21,7 +21,7 @@ $(function() {
     eventRender: function(event, element) {
       if (event.task) {
         element.append('<div>'+event.task+'</div>');
-      };
+      }
     },
     header: {
       left:   'title agendaDay,agendaWeek',
@@ -65,7 +65,7 @@ $(function() {
       ]
     }
   ]
-  })
+  });
 });
 
 const regexDuration = /^\d*([:]?|[.])?\d+$/;
@@ -207,7 +207,7 @@ $('input[name="date"]').blur(function(){
     formDate = moment(inputVar, "DD-MM-YYYY");
   } else {
     return;
-  };
+  }
   
   // Get the formatted date (or empty if invalid)
   output = formDate.isValid() ? formDate.format('DD.MM.YYYY') : '';
@@ -229,7 +229,7 @@ $('input[name="time"]').blur(function(){
     formTime = moment('2018-01-01 '+inputVar, 'YYYY-MM-DD HH:mm');
   } else {
     return;
-  };
+  }
   
   // Get the formatted date (or empty if invalid)
   output = formTime.isValid() ? formTime.format('HH:mm') : '';
@@ -252,22 +252,22 @@ $('input[name="duration"]').blur(function(){
   
   // Sanitize input. If valid, split at colon
   if (regexDuration.test(inputVar)) {
-    if (inputVar.indexOf('.') !== -1) { splitChar = '.'};
+    if (inputVar.indexOf('.') !== -1) { splitChar = '.'; }
     inputArr = inputVar.split(splitChar);
   } else {
     return;
-  };
+  }
   
   // no splitChar: treat input as hours
   if (inputArr.length == 1) {
       hours = inputArr[0] ? parseInt(inputArr[0]) : 0;
-  };
+  }
   
   // one splitChar -> treat input as hh:mm
   if (inputArr.length == 2) {
       hours = inputArr[0] ? parseInt(inputArr[0]) : 0;
       minutes = inputArr[1] ? parseInt(inputArr[1]) : 0;
-  };
+  }
   
   // point as splitChar -> treat minutes as decimal
   if (splitChar == '.') {
