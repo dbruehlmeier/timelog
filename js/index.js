@@ -193,12 +193,12 @@ $("#frm-timelog").form("set value", "duration", "01:00");
 $("#frm-timelog").form("set value", "billable", false);
 
 // TODO: Does not work on mobile (iOS)
-$("input[name="duration"]").focus(function(){
+$("input[name=duration]").focus(function(){
   $(this).select();
 });
 
 // Field manipulation for date
-$("input[name="date"]").blur(function(){
+$("input[name=date]").blur(function(){
   var inputVar = $(this).val();
   var output = "";
   
@@ -220,7 +220,7 @@ $("input[name="date"]").blur(function(){
 });
 
 // Field manipulation for time
-$("input[name="time"]").blur(function(){
+$("input[name=time]").blur(function(){
   var inputVar = $(this).val();
   var output = "";
   
@@ -242,7 +242,7 @@ $("input[name="time"]").blur(function(){
 });
                                  
 // Field manipulation for duration
-$("input[name="duration"]").blur(function(){
+$("input[name=duration]").blur(function(){
   var output = "";
   var minutes = 0;
   var hours = 0;
