@@ -124,7 +124,7 @@ function updateTaskList(zohoTasksArray) {
       name: element.name,
       value: element.id_string
     });
-  }
+  });
   
   $('#dropdown-tasks').dropdown({
     values: taskListDropdown,
