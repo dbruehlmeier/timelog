@@ -124,8 +124,8 @@ function getZohoTasksForProject(zohoProjectId) {
       zohoTasks = JSON.parse(localStorage.getItem(storageId));
       updateTaskList(zohoTasks);
     } catch (e) {
-      console.log(e.name + ': ' + e.message);
-      console.log(JSON.stringify(localStorage.getItem(storageId)));
+      console.log(e.name + ": " + e.message);
+      console.log("storageId: " + storageId);
     }
   } else {
     // Get tasks from the ZOHO API
