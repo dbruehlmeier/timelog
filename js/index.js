@@ -117,11 +117,12 @@ function getTasksFromZoho(zohoProjectsArray) {
 function getZohoTasksForProject(zohoProjectId) {
   if (!zohoProjectId) { return; }
   var storageId = zohoTaskKey+"."+zohoProjectId;
+  var currentTask = localStorage.getItem(storageId);
 
-  if(localStorage.getItem(storageId)) {
+  if(currentTask !== "undefined" && currentTask) {
     // Get tasks from cache
     try {
-      zohoTasks = JSON.parse(localStorage.getItem(storageId));
+      zohoTasks = JSON.parse(currentTask);
       updateTaskList(zohoTasks);
     } catch (e) {
       console.log(e.name + ": " + e.message);
