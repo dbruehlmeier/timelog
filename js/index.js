@@ -130,17 +130,9 @@ function getZohoTasksForProject(zohoProjectId) {
   } else {
     // Get tasks from the ZOHO API
     $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
+      console.log(typeof data);
       localStorage.setItem(storageId, JSON.stringify(data));
       updateTaskList(data);
-    }).done(function ( data, textStatus, jqXHR) {
-       console.log("done: " + zohoProjectId);
-       console.log(jqXHR.status); //handle your 204 or other status codes here
-    }).fail(function ( data, textStatus, jqXHR) {
-       console.log("fail: " + zohoProjectId);
-       console.log(jqXHR.status); //handle your 204 or other status codes here
-    }).always(function ( data, textStatus, jqXHR) {
-       console.log("always: " + zohoProjectId);
-       console.log(jqXHR.status); //handle your 204 or other status codes here
     });
   }
 }
