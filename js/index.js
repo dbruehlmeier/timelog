@@ -96,6 +96,7 @@ function getTaskEntries() {
       getTasksFromZoho(zohoProjects);
     } catch (e) {
       console.log(e.name + ': ' + e.message);
+      console.log(JSON.stringify(localStorage.getItem(zohoProjectsKey)));
     }
   } else {
     // Get projects from the ZOHO API
@@ -124,6 +125,7 @@ function getZohoTasksForProject(zohoProjectId) {
       updateTaskList(zohoTasks);
     } catch (e) {
       console.log(e.name + ': ' + e.message);
+      console.log(JSON.stringify(localStorage.getItem(storageId)));
     }
   } else {
     // Get tasks from the ZOHO API
