@@ -88,6 +88,7 @@ $("#btn-refresh").click(function() {
   getTaskEntries();
 });
 
+// Gets all entries in the "Task" Dropdown. Tries to fetch from cache first, in order to avoid rate limits in Zoho
 function getTaskEntries() {
   var currentProject = localStorage.getItem(zohoProjectsKey);
   
@@ -117,13 +118,14 @@ function getTaskEntries() {
   }
 }
 
+// Iterates over the list of Zoho projects and gets the tasks for each
 function getTasksFromZoho(zohoProjectsArray) {
   zohoProjectsArray.projects.forEach(function(element) {
-    getZohoTasksForProject(element.id_string);
+    getZohoTasksForProject(element.id_string, element.name);
   });
 }
 
-function getZohoTasksForProject(zohoProjectId) {
+function getZohoTasksForProject(zohoProjectId, zohoProjectName) {
   if (!zohoProjectId) { return; }
   var storageId = zohoTaskKey+"."+zohoProjectId;
   var currentTask = localStorage.getItem(storageId);
@@ -137,7 +139,7 @@ function getZohoTasksForProject(zohoProjectId) {
     // Get tasks from cache
     try {
       zohoTasks = JSON.parse(currentTask);
-      updateTaskList(zohoTasks);
+      updateTaskList(zohoTasks, zohoProjectName);
     } catch (e) {
       console.log(e.name + ": " + e.message);
       console.log("storageId: " + storageId);
@@ -148,16 +150,19 @@ function getZohoTasksForProject(zohoProjectId) {
       // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(storageId, JSON.stringify(data));
       if (data) {
-        updateTaskList(data);
+        updateTaskList(data, zohoProjectName);
       }
     });
   }
 }
 
-function updateTaskList(zohoTasksArray) {
+function updateTaskList(zohoTasksArray, zohoProjectName) {
+  var displayName;  
+  
   zohoTasksArray.tasks.forEach(function(element) {
+    displayName = element.name + "(" + zohoProjectName + ")";
     taskListDropdown.push({
-      name: element.name,
+      name: displayName,
       value: element.id_string
     });
   });
