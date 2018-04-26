@@ -89,10 +89,13 @@ $("#btn-refresh").click(function() {
 });
 
 function getTaskEntries() {
-  if(localStorage.getItem(zohoProjectsKey)) {
+  var currentProject = getItem(zohoProjectsKey);
+  
+  // If a cache could be found and it was not "undefined" (as in the case of HTTP 204 when there are no projects)
+  if(currentProject !== "undefined" && currentProject) {
     // Get projects from cache
     try {
-      zohoProjects = JSON.parse(localStorage.getItem(zohoProjectsKey));
+      zohoProjects = JSON.parse(currentProject);
       getTasksFromZoho(zohoProjects);
     } catch (e) {
       console.log(e.name + ': ' + e.message);
@@ -113,12 +116,12 @@ function getTasksFromZoho(zohoProjectsArray) {
   });
 }
 
-// TODO: Handle 204 responses (no content)
 function getZohoTasksForProject(zohoProjectId) {
   if (!zohoProjectId) { return; }
   var storageId = zohoTaskKey+"."+zohoProjectId;
   var currentTask = localStorage.getItem(storageId);
 
+  // If a cache could be found and it was not "undefined" (as in the case of HTTP 204 when there are no tasks for this project)
   if(currentTask !== "undefined" && currentTask) {
     // Get tasks from cache
     try {
@@ -131,12 +134,9 @@ function getZohoTasksForProject(zohoProjectId) {
   } else {
     // Get tasks from the ZOHO API
     $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
-      if (data) {
-        localStorage.setItem(storageId, JSON.stringify(data));
-        updateTaskList(data);
-      } else {
-       console.log("No data for project ID: "+ zohoProjectId);
-      }
+      // caching the response (even in the case of HTTP 204: the value "undefined" is stored in order to prevent further API calls)
+      localStorage.setItem(storageId, JSON.stringify(data));
+      updateTaskList(data);
     });
   }
 }
