@@ -132,6 +132,8 @@ function getZohoTasksForProject(zohoProjectId) {
     $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
       localStorage.setItem(storageId, JSON.stringify(data));
       updateTaskList(data);
+    }).done(function ( data, textStatus, jqXHR) {
+       console.log(jqXHR.status); //handle your 204 or other status codes here
     });
   }
 }
