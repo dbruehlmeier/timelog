@@ -105,7 +105,7 @@ function getTaskEntries() {
     }
   } else {
     // Get projects from the ZOHO API
-    $.getJSON( zohoBaseUrl+"projects/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", status="active" }, function( data ) {
+    $.getJSON( zohoBaseUrl+"projects/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", status:"active" }, function( data ) {
       // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
       if (data) {
