@@ -160,7 +160,7 @@ function updateTaskList(zohoTasksArray, zohoProjectName) {
   var displayName;  
   
   zohoTasksArray.tasks.forEach(function(element) {
-    displayName = element.name + "(" + zohoProjectName + ")";
+    displayName = element.name + " (" + zohoProjectName + ")";
     taskListDropdown.push({
       name: displayName,
       value: element.id_string
