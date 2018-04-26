@@ -91,8 +91,12 @@ $("#btn-refresh").click(function() {
 function getTaskEntries() {
   var currentProject = localStorage.getItem(zohoProjectsKey);
   
-  // If a cache could be found and it was not "undefined" (as in the case of HTTP 204 when there are no projects)
-  if(currentProject !== "undefined" && currentProject) {
+  // This is the case of HTTP 204, when there are no projects. Nothing to do, return.
+  if (currentProject == "undefined") {
+    return;    
+  }
+  
+  if(currentProject) {
     // Get projects from cache
     try {
       zohoProjects = JSON.parse(currentProject);
@@ -120,9 +124,13 @@ function getZohoTasksForProject(zohoProjectId) {
   if (!zohoProjectId) { return; }
   var storageId = zohoTaskKey+"."+zohoProjectId;
   var currentTask = localStorage.getItem(storageId);
-
-  // If a cache could be found and it was not "undefined" (as in the case of HTTP 204 when there are no tasks for this project)
-  if(currentTask !== "undefined" && currentTask) {
+  
+  // This is the case of HTTP 204, when there are no tasks for this project. Nothing to do, return.
+  if (currentTask == "undefined") {
+    return;    
+  }
+  
+  if(currentTask) {
     // Get tasks from cache
     try {
       zohoTasks = JSON.parse(currentTask);
