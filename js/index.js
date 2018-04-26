@@ -143,7 +143,7 @@ function getZohoTasksForProject(zohoProjectId, zohoProjectName) {
     }
   } else {
     // Get tasks from the ZOHO API
-    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
+    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", owner: "20062563695", status: "status", time: "all", priority: "all" }, function( data ) {
       // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(storageId, JSON.stringify(data));
       if (data) {
