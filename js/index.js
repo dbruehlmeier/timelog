@@ -108,8 +108,11 @@ function getTaskEntries() {
   } else {
     // Get projects from the ZOHO API
     $.getJSON( zohoBaseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
+      // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
-      getTasksFromZoho(data);
+      if (data) {
+        getTasksFromZoho(data);
+      }
     });
   }
 }
@@ -142,9 +145,11 @@ function getZohoTasksForProject(zohoProjectId) {
   } else {
     // Get tasks from the ZOHO API
     $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
-      // caching the response (even in the case of HTTP 204: the value "undefined" is stored in order to prevent further API calls)
+      // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(storageId, JSON.stringify(data));
-      updateTaskList(data);
+      if (data) {
+        updateTaskList(data);
+      }
     });
   }
 }
