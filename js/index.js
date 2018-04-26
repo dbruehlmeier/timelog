@@ -77,7 +77,7 @@ const zohoTaskKey = "zoho-task";
 var taskListDropdown = [];
 
 // Clear localStorage
-localStorage.clear();
+//localStorage.clear();
 
 $("#btn-add").click(function() {
   $("#modal-timelog").modal("show");
