@@ -89,7 +89,7 @@ $("#btn-refresh").click(function() {
 });
 
 function getTaskEntries() {
-  var currentProject = getItem(zohoProjectsKey);
+  var currentProject = localStorage.getItem(zohoProjectsKey);
   
   // If a cache could be found and it was not "undefined" (as in the case of HTTP 204 when there are no projects)
   if(currentProject !== "undefined" && currentProject) {
@@ -99,7 +99,7 @@ function getTaskEntries() {
       getTasksFromZoho(zohoProjects);
     } catch (e) {
       console.log(e.name + ': ' + e.message);
-      console.log(JSON.stringify(localStorage.getItem(zohoProjectsKey)));
+      console.log(JSON.stringify(currentProject));
     }
   } else {
     // Get projects from the ZOHO API
