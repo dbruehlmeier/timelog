@@ -160,7 +160,7 @@ function updateTaskList(zohoTasksArray, zohoProjectName) {
     if (element.subtasks) {
       console.log("Subtasks detected for Task ID: " + element.id_string);
     }
-    displayName = element.name + " (" + zohoProjectName + "|" + element.tasklist.name + ")";
+    displayName = element.name + " (" + zohoProjectName + " | " + element.tasklist.name + ")";
     taskListDropdown.push({
       name: displayName,
       value: element.id_string
