@@ -90,9 +90,15 @@ $("#btn-refresh").click(function() {
 
 function getTaskEntries() {
   if(localStorage.getItem(zohoProjectsKey)) {
-    zohoProjects = JSON.parse(localStorage.getItem(zohoProjectsKey));
-    getTasksFromZoho(zohoProjects);
+    // Get projects from cache
+    try {
+      zohoProjects = JSON.parse(localStorage.getItem(zohoProjectsKey));
+      getTasksFromZoho(zohoProjects);
+    } catch (e) {
+      console.log(e.name + ': ' + e.message);
+    }
   } else {
+    // Get projects from the ZOHO API
     $.getJSON( zohoBaseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
       localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
       getTasksFromZoho(data);
@@ -106,14 +112,21 @@ function getTasksFromZoho(zohoProjectsArray) {
   });
 }
 
+// TODO: Handle 204 responses (no content)
 function getZohoTasksForProject(zohoProjectId) {
   if (!zohoProjectId) { return; }
   var storageId = zohoTaskKey+"."+zohoProjectId;
 
   if(localStorage.getItem(storageId)) {
-    zohoTasks = JSON.parse(localStorage.getItem(storageId));
-    updateTaskList(zohoTasks);
+    // Get tasks from cache
+    try {
+      zohoTasks = JSON.parse(localStorage.getItem(storageId));
+      updateTaskList(zohoTasks);
+    } catch (e) {
+      console.log(e.name + ': ' + e.message);
+    }
   } else {
+    // Get tasks from the ZOHO API
     $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/tasks/?authtoken=bf97913da8a83b9bbccaa87e66242727&owner=all&status=all&time=all&priority=all", function( data ) {
       localStorage.setItem(storageId, JSON.stringify(data));
       updateTaskList(data);
@@ -136,23 +149,6 @@ function updateTaskList(zohoTasksArray) {
     fullTextSearch: true,
     sortSelect: true
   })
-}
-
-
-// Gets Zoho projects. First tries to fetch the projects from cache (localStorage), then gets projects from Zoho via REST
-function getZohoProjects() {
-  var output = Array();
-  
-  if(!localStorage.getItem(zohoProjectsKey)) {
-    $.getJSON( zohoBaseUrl+"projects/?authtoken=bf97913da8a83b9bbccaa87e66242727&status=active", function( data ) {
-      output = data;
-      localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
-    });
-  } else {
-    output = JSON.parse(localStorage.getItem(zohoProjectsKey));
-  }
-  
-  return output;
 }
 
 $("#frm-timelog")
