@@ -76,6 +76,9 @@ const zohoProjectsKey = "zoho-projects";
 const zohoTaskKey = "zoho-task";
 var taskListDropdown = [];
 
+// Clear localStorage
+localStorage.clear();
+
 $("#btn-add").click(function() {
   $("#modal-timelog").modal("show");
 });
