@@ -162,6 +162,10 @@ function updateTaskList(zohoTasksArray) {
     });
   });
   
+  taskListDropdown.sort(function(a, b) {
+    return (a.name).localeCompare(b.name);
+  });
+  
   $('#dropdown-tasks').dropdown({
     values: taskListDropdown,
     placeholder: 'Select Task',
