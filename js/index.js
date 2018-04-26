@@ -133,13 +133,13 @@ function getZohoTasksForProject(zohoProjectId) {
       localStorage.setItem(storageId, JSON.stringify(data));
       updateTaskList(data);
     }).done(function ( data, textStatus, jqXHR) {
-       console.log("done");
+       console.log("done: " + zohoProjectId);
        console.log(jqXHR.status); //handle your 204 or other status codes here
     }).fail(function ( data, textStatus, jqXHR) {
-       console.log("fail");
+       console.log("fail: " + zohoProjectId);
        console.log(jqXHR.status); //handle your 204 or other status codes here
     }).always(function ( data, textStatus, jqXHR) {
-       console.log("always");
+       console.log("always: " + zohoProjectId);
        console.log(jqXHR.status); //handle your 204 or other status codes here
     });
   }
