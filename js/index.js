@@ -98,15 +98,15 @@ function postTimelogToZoho() {
   var taskBillStatus = "Non Billable";
   var taskHours = "00:30";
   var taskNotes = "This is a TEST!";  
-  $.post( "zohoBaseUrl+"projects/" + projectId + "/tasks/" + taskId + "/logs/",
-         {
+  $.post( zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/",
+       {
          authtoken: "bf97913da8a83b9bbccaa87e66242727",
          date: taskDate,
          owner: taskOwner,
          bill_status: taskBillStatus,
          hours: taskHours,
          notes: taskNotes
-         },
+       },
       function( data ) {
         alert( "Data Loaded: " + data );
       }
