@@ -98,16 +98,19 @@ function postTimelogToZoho() {
   var taskBillStatus = "Non Billable";
   var taskHours = "00:30";
   var taskNotes = "This is a TEST!";  
-  $.post( "zohoBaseUrl+"projects/" + projectId + "/tasks/" + taskId + "/logs/", {
+  $.post( "zohoBaseUrl+"projects/" + projectId + "/tasks/" + taskId + "/logs/",
+         {
          authtoken: "bf97913da8a83b9bbccaa87e66242727",
          date: taskDate,
          owner: taskOwner,
          bill_status: taskBillStatus,
          hours: taskHours,
          notes: taskNotes
-         }, function( data ) {
-    alert( "Data Loaded: " + data );
-  });
+         },
+      function( data ) {
+        alert( "Data Loaded: " + data );
+      }
+  );
 }
 
 // Gets all entries in the "Task" Dropdown. Tries to fetch from cache first, in order to avoid rate limits in Zoho
@@ -130,7 +133,7 @@ function getTaskEntries() {
     }
   } else {
     // Get projects from the ZOHO API
-    $.getJSON( zohoBaseUrl+"projects/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", status:"active" }, function( data ) {
+    $.getJSON( zohoBaseUrl+"projects/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", status:"active" }, function(data) {
       // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
       if (data) {
