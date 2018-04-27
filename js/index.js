@@ -97,20 +97,29 @@ function postTimelogToZoho() {
   var taskOwner = 20062563695;
   var taskBillStatus = "Non Billable";
   var taskHours = "00:30";
-  var taskNotes = "This is a TEST!";  
-  $.post( zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/",
-       {
+  var taskNotes = "This is a TEST!";
+  var taskUrl = zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/";
+  var taskData = {
          authtoken: "bf97913da8a83b9bbccaa87e66242727",
          date: taskDate,
          owner: taskOwner,
          bill_status: taskBillStatus,
          hours: taskHours,
          notes: taskNotes
-       },
-      function( data ) {
-        alert( "Data Loaded: " + data );
-      }
-  );
+  };
+    
+  $.ajax({
+    type: "POST",
+    url: taskUrl,
+    data: taskData,
+    success: alertSuccess,
+    dataType: "json"
+  });
+
+}
+
+function alertSuccess( data ) {
+  alert( "Data Loaded: " + data );
 }
 
 // Gets all entries in the "Task" Dropdown. Tries to fetch from cache first, in order to avoid rate limits in Zoho
