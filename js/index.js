@@ -85,6 +85,11 @@ $("#btn-refresh").click(function() {
   getTaskEntries();
 });
 
+// Post a test time log to Zoho
+$("#btn-put").click(function() {
+  alert("Yo, Zoho!");
+});
+
 // Gets all entries in the "Task" Dropdown. Tries to fetch from cache first, in order to avoid rate limits in Zoho
 function getTaskEntries() {
   var currentProject = localStorage.getItem(zohoProjectsKey);
