@@ -33,7 +33,8 @@ $(function() {
       alert('selected ' + startDate.format() + ' to ' + endDate.format());
       $("#frm-timelog").form("set value", "date", startDate.format("DD.MM.YYYY"));
       $("#frm-timelog").form("set value", "time", startDate.format("hh:mm"));
-      $("#frm-timelog").form("set value", "duration", endDate.diff(startDate, "hours"));
+      var duration = moment.duration(endDate.diff(startDate))
+      $("#frm-timelog").form("set value", "duration", duration.as("hours"));
       $("#modal-timelog").modal("show");
     },
     eventSources: [
