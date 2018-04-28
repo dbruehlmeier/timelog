@@ -219,7 +219,7 @@ function getZohoTasksForProject(zohoProjectId, zohoProjectName) {
     // Get tasks from cache
     try {
       zohoTasks = JSON.parse(currentTask);
-      updateTaskList(zohoTasks, zohoProjectName);
+      updateTaskList(zohoTasks, zohoProjectName, zohoProjectId);
     } catch (e) {
       console.log(e.name + ": " + e.message);
       console.log("storageId: " + storageId);
@@ -230,13 +230,13 @@ function getZohoTasksForProject(zohoProjectId, zohoProjectName) {
       // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(storageId, JSON.stringify(data));
       if (data) {
-        updateTaskList(data, zohoProjectName);
+        updateTaskList(data, zohoProjectName, zohoProjectId);
       }
     });
   }
 }
 
-function updateTaskList(zohoTasksArray, zohoProjectName) {
+function updateTaskList(zohoTasksArray, zohoProjectName, zohoProjectId) {
   var displayName;  
   
   zohoTasksArray.tasks.forEach(function(element) {
@@ -246,7 +246,7 @@ function updateTaskList(zohoTasksArray, zohoProjectName) {
     displayName = element.name + " (" + zohoProjectName + " | " + element.tasklist.name + ")";
     taskListDropdown.push({
       name: displayName,
-      value: element.id_string
+      value: zohoProjectId+ "|" + element.id_string
     });
   });
   
