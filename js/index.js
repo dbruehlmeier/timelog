@@ -31,6 +31,10 @@ $(function() {
     selectable: true,
     select: function(startDate, endDate) {
       alert('selected ' + startDate.format() + ' to ' + endDate.format());
+      $("#frm-timelog").form("set value", "date", startDate.format("MM.DD.YYYY"));
+      $("#frm-timelog").form("set value", "time", startDate.format("hh:mm"));
+      $("#frm-timelog").form("set value", "duration", startDate.diff(endDate, "hours");
+      $("#modal-timelog").modal("show");
     },
     eventSources: [
     {
@@ -271,9 +275,9 @@ $("#frm-timelog")
 ;
 
 // TODO: Set these values from fullcalendar.js drop event
-$("#frm-timelog").form("set value", "date", "02.04.2018");
-$("#frm-timelog").form("set value", "time", "09:30");
-$("#frm-timelog").form("set value", "duration", "01:00");
+//$("#frm-timelog").form("set value", "date", "02.04.2018");
+//$("#frm-timelog").form("set value", "time", "09:30");
+//$("#frm-timelog").form("set value", "duration", "01:00");
 
 // TODO: Set this value from the selected project
 $("#frm-timelog").form("set value", "billable", false);
