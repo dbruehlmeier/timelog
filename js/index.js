@@ -35,6 +35,7 @@ $(function() {
       $("#frm-timelog").form("set value", "duration", formatDuration(endDate.diff(startDate, "minutes")));
       // TODO: Do not allow more than 12 hours
       $("#modal-timelog").modal("show");
+      $("#dropdown-tasks").focus();
     },
     eventSources: [
     {
