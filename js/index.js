@@ -31,9 +31,9 @@ $(function() {
     selectable: true,
     select: function(startDate, endDate) {
       alert('selected ' + startDate.format() + ' to ' + endDate.format());
-      $("#frm-timelog").form("set value", "date", startDate.format("MM.DD.YYYY"));
+      $("#frm-timelog").form("set value", "date", startDate.format("DD.MM.YYYY"));
       $("#frm-timelog").form("set value", "time", startDate.format("hh:mm"));
-      $("#frm-timelog").form("set value", "duration", startDate.diff(endDate, "hours"));
+      $("#frm-timelog").form("set value", "duration", endDate.diff(startDate, "hours"));
       $("#modal-timelog").modal("show");
     },
     eventSources: [
