@@ -79,7 +79,7 @@ $(function() {
 });
 
 $("#frm-timelog").submit(function() {
-  var taskDateObj = moment($("#frm-timelog").form("get value", "date"), "DD.MM.YYYY"):
+  var taskDateObj = moment($("#frm-timelog").form("get value", "date"), "DD.MM.YYYY");
   
   var projectId = "21131000000006326";
   var taskId = "21131000000055113";
