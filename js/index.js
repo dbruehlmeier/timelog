@@ -30,10 +30,10 @@ $(function() {
     },
     selectable: true,
     select: function(startDate, endDate) {
-      alert('selected ' + startDate.format() + ' to ' + endDate.format());
       $("#frm-timelog").form("set value", "date", startDate.format("DD.MM.YYYY"));
       $("#frm-timelog").form("set value", "time", startDate.format("hh:mm"));
       $("#frm-timelog").form("set value", "duration", formatDuration(endDate.diff(startDate, "minutes")));
+      // TODO: Do not allow more than 12 hours
       $("#modal-timelog").modal("show");
     },
     eventSources: [
