@@ -78,6 +78,10 @@ $(function() {
   });
 });
 
+$("#frm-timelog").submit(function() {
+  alert($("#frm-timelog").form("get value", "date");
+})
+
 function formatDuration(minutes) {
   durationMoment = moment("2018-01-01 00:00", "YYYY-MM-DD HH:mm");
   durationMoment.add(minutes, "minutes");
