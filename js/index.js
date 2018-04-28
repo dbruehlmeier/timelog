@@ -78,6 +78,29 @@ $(function() {
   });
 });
 
+
+const regexDuration = /^\d*([:]?|[.])?\d+$/;
+const regexTime = /^\d{1,2}[:]\d{1,2}$/;
+const regexDate = /^\d{1,2}[.]\d{1,2}[.](?:\d{4}|\d{2})$/;
+const zohoBaseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
+const zohoProjectsKey = "zoho-projects";
+const zohoTaskKey = "zoho-task";
+var taskListDropdown = [];
+
+$("#btn-add").click(function() {
+  $("#modal-timelog").modal("show");
+});
+
+// Get projects
+$("#btn-refresh").click(function() {
+  getTaskEntries();
+});
+
+// Post a test time log to Zoho
+$("#btn-put").click(function() {
+  postTimelogToZoho();
+});
+
 $("#frm-timelog").submit(function() {
   var taskDateObj = moment($("#frm-timelog").form("get value", "date"), "DD.MM.YYYY");
   
@@ -113,27 +136,6 @@ function formatDuration(minutes) {
   return durationMoment.format("HH:mm");
 }
 
-const regexDuration = /^\d*([:]?|[.])?\d+$/;
-const regexTime = /^\d{1,2}[:]\d{1,2}$/;
-const regexDate = /^\d{1,2}[.]\d{1,2}[.](?:\d{4}|\d{2})$/;
-const zohoBaseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
-const zohoProjectsKey = "zoho-projects";
-const zohoTaskKey = "zoho-task";
-var taskListDropdown = [];
-
-$("#btn-add").click(function() {
-  $("#modal-timelog").modal("show");
-});
-
-// Get projects
-$("#btn-refresh").click(function() {
-  getTaskEntries();
-});
-
-// Post a test time log to Zoho
-$("#btn-put").click(function() {
-  postTimelogToZoho();
-});
 
 function postTimelogToZoho() {
   var projectId = "21131000000006326";
