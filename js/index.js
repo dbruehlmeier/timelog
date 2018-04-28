@@ -33,8 +33,7 @@ $(function() {
       alert('selected ' + startDate.format() + ' to ' + endDate.format());
       $("#frm-timelog").form("set value", "date", startDate.format("DD.MM.YYYY"));
       $("#frm-timelog").form("set value", "time", startDate.format("hh:mm"));
-      var duration = moment.duration(endDate.diff(startDate))
-      $("#frm-timelog").form("set value", "duration", duration.as("hours"));
+      $("#frm-timelog").form("set value", "duration", formatDuration(endDate.diff(startDate, "minutes")));
       $("#modal-timelog").modal("show");
     },
     eventSources: [
@@ -76,6 +75,12 @@ $(function() {
   ]
   });
 });
+
+function formatDuration(minutes) {
+  durationMoment = moment("2018-01-01 00:00", "YYYY-MM-DD HH:mm");
+  durationMoment.add(minutes, "minutes");
+  return durationMoment.format("HH:mm");
+}
 
 const regexDuration = /^\d*([:]?|[.])?\d+$/;
 const regexTime = /^\d{1,2}[:]\d{1,2}$/;
