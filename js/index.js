@@ -28,6 +28,10 @@ $(function() {
       center: "",
       right:  "today prev,next"
     },
+    selectable: true,
+    select: function(startDate, endDate) {
+      alert('selected ' + startDate.format() + ' to ' + endDate.format());
+    },
     eventSources: [
     {
       id: "Zoho",
