@@ -79,7 +79,32 @@ $(function() {
 });
 
 $("#frm-timelog").submit(function() {
-  alert($("#frm-timelog").form("get value", "date"));
+  var taskDateObj = moment($("#frm-timelog").form("get value", "date"), "DD.MM.YYYY"):
+  
+  var projectId = "21131000000006326";
+  var taskId = "21131000000055113";
+  var taskDate = taskDateObj.format("MM-DD-YYYY");
+  
+  var taskOwner = "20062563695";
+  var taskBillStatus = "Non Billable";
+  var taskHours = $("#frm-timelog").form("get value", "duration");
+  var taskNotes = $("#frm-timelog").form("get value", "description");
+  var taskUrl = zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/?";
+  var taskData = $.param({
+         authtoken: "bf97913da8a83b9bbccaa87e66242727",
+         date: taskDate,
+         owner: taskOwner,
+         bill_status: taskBillStatus,
+         hours: taskHours,
+         notes: taskNotes
+  });
+    
+  $.ajax({
+    type: "POST",
+    url: taskUrl + taskData,
+    success: alertSuccess,
+    dataType: "json"
+  });
 })
 
 function formatDuration(minutes) {
@@ -131,7 +156,6 @@ function postTimelogToZoho() {
   $.ajax({
     type: "POST",
     url: taskUrl + taskData,
-    //data: taskData,
     success: alertSuccess,
     dataType: "json"
   });
@@ -139,7 +163,7 @@ function postTimelogToZoho() {
 }
 
 function alertSuccess( data ) {
-  alert( "Data Loaded: " + data );
+  alert( "Data Loaded: " + JSON.stringify(data) );
 }
 
 // Gets all entries in the "Task" Dropdown. Tries to fetch from cache first, in order to avoid rate limits in Zoho
