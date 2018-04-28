@@ -79,7 +79,7 @@ $(function() {
 });
 
 $("#frm-timelog").submit(function() {
-  alert($("#frm-timelog").form("get value", "date");
+  alert($("#frm-timelog").form("get value", "date"));
 })
 
 function formatDuration(minutes) {
