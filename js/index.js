@@ -112,8 +112,7 @@ $("#frm-timelog").submit(function() {
   var taskId = idArray[1];
   var taskDate = taskDateObj.format("MM-DD-YYYY");
   var taskOwner = "20062563695";
-  var taskBill = $("#checkbox-billable").checkbox("is checked");
-  var taskBillStatus = "Non Billable";
+  var taskBillStatus = $("#checkbox-billable").checkbox("is checked") ? "Billable" : "Non Billable";
   var taskHours = $("#frm-timelog").form("get value", "duration");
   var taskNotes = $("#frm-timelog").form("get value", "description");
   var taskUrl = zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/?";
