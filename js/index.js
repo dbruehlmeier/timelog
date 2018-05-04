@@ -107,13 +107,12 @@ $("#btn-put").click(function() {
 
 $("#frm-timelog").submit(function() {
   var taskDateObj = moment($("#frm-timelog").form("get value", "date"), "DD.MM.YYYY");
-  
-  var projectId = "21131000000006326";
-  var taskId = "21131000000055113";
+  var idArray = $("#dropdown-tasks").dropdown("get value").split("|");
+  var projectId = idArray[0];
+  var taskId = idArray[1];
   var taskDate = taskDateObj.format("MM-DD-YYYY");
-  //var tempId = $("#frm-timelog").form("get value", "dropdown-tasks");
-  var tempId = $("#dropdown-tasks").dropdown("get value");
   var taskOwner = "20062563695";
+  var taskBill = $("#frm-timelog").form("get value", "checkbox-billable");
   var taskBillStatus = "Non Billable";
   var taskHours = $("#frm-timelog").form("get value", "duration");
   var taskNotes = $("#frm-timelog").form("get value", "description");
