@@ -116,6 +116,9 @@ $("#frm-timelog").submit(function() {
   var taskBillStatus = $("#checkbox-billable").checkbox("is checked") ? "Billable" : "Non Billable";
   var taskHours = $("#frm-timelog").form("get value", "duration");
   var taskTime = $("#frm-timelog").form("get value", "time");
+  
+  // Add taskTime at the beginning of the notes, because the API does not (yet) support time...
+  // When parsing the events, we'll get the time from the notes field.
   var taskNotes = "[" + taskTime + "] " + $("#frm-timelog").form("get value", "description");
   var taskUrl = zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/?";
   var taskData = $.param({
@@ -139,34 +142,6 @@ function formatDuration(minutes) {
   durationMoment = moment("2018-01-01 00:00", "YYYY-MM-DD HH:mm");
   durationMoment.add(minutes, "minutes");
   return durationMoment.format("HH:mm");
-}
-
-
-function postTimelogToZoho() {
-  var projectId = "21131000000006326";
-  var taskId = "21131000000055113";
-  var taskDate = "04-27-2018"; // Format must be MM-DD-YYYY
-  var taskOwner = "20062563695";
-  var taskBillStatus = "Non Billable";
-  var taskHours = "00:30";
-  var taskNotes = "This is a TEST!";
-  var taskUrl = zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/?";
-  var taskData = $.param({
-         authtoken: "bf97913da8a83b9bbccaa87e66242727",
-         date: taskDate,
-         owner: taskOwner,
-         bill_status: taskBillStatus,
-         hours: taskHours,
-         notes: taskNotes
-  });
-    
-  $.ajax({
-    type: "POST",
-    url: taskUrl + taskData,
-    success: alertSuccess,
-    dataType: "json"
-  });
-
 }
 
 function alertSuccess( data ) {
