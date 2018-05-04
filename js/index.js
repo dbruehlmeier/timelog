@@ -40,7 +40,7 @@ $(function() {
     },
     selectConstraint:{
       start: '00:00',
-      end: '23:59'
+      end: '24:00'
     }, 
     eventSources: [
     {
