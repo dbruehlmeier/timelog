@@ -316,11 +316,6 @@ $("#frm-timelog")
   })
 ;
 
-// TODO: Set these values from fullcalendar.js drop event
-//$("#frm-timelog").form("set value", "date", "02.04.2018");
-//$("#frm-timelog").form("set value", "time", "09:30");
-//$("#frm-timelog").form("set value", "duration", "01:00");
-
 // TODO: Set this value from the selected project
 $("#frm-timelog").form("set value", "billable", false);
 
@@ -426,3 +421,12 @@ $("input[name=duration]").blur(function(){
   // Call validation to make invalid input visible
   $("#frm-timelog").form("validate field", "duration");
 });
+
+$('#dropdown-tasks')
+  .dropdown({
+    onChange: function(value, text, $selectedItem) {
+      console.log(value);
+      console.log(text);
+    }
+  })
+;
