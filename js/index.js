@@ -116,7 +116,7 @@ $("#frm-timelog").submit(function() {
   var taskBillStatus = $("#checkbox-billable").checkbox("is checked") ? "Billable" : "Non Billable";
   var taskHours = $("#frm-timelog").form("get value", "duration");
   var taskTime = $("#frm-timelog").form("get value", "time");
-  var taskNotes = "[" + taskTime + "]" + $("#frm-timelog").form("get value", "description");
+  var taskNotes = "[" + taskTime + "] " + $("#frm-timelog").form("get value", "description");
   var taskUrl = zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/?";
   var taskData = $.param({
          authtoken: "bf97913da8a83b9bbccaa87e66242727",
