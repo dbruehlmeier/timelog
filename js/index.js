@@ -111,10 +111,12 @@ $("#frm-timelog").submit(function() {
   var projectId = idArray[0];
   var taskId = idArray[1];
   var taskDate = taskDateObj.format("MM-DD-YYYY");
+  // TODO: Set dynamic owner
   var taskOwner = "20062563695";
   var taskBillStatus = $("#checkbox-billable").checkbox("is checked") ? "Billable" : "Non Billable";
   var taskHours = $("#frm-timelog").form("get value", "duration");
-  var taskNotes = $("#frm-timelog").form("get value", "description");
+  var taskTime = $("#frm-timelog").form("get value", "time");
+  var taskNotes = "[" + taskTime + "]" + $("#frm-timelog").form("get value", "description");
   var taskUrl = zohoBaseUrl + "projects/" + projectId + "/tasks/" + taskId + "/logs/?";
   var taskData = $.param({
          authtoken: "bf97913da8a83b9bbccaa87e66242727",
