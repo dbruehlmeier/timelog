@@ -111,7 +111,8 @@ $("#frm-timelog").submit(function() {
   var projectId = "21131000000006326";
   var taskId = "21131000000055113";
   var taskDate = taskDateObj.format("MM-DD-YYYY");
-  var tempId = $("#frm-timelog").form("get value", "dropdown-tasks");
+  //var tempId = $("#frm-timelog").form("get value", "dropdown-tasks");
+  var tempId = $("#dropdown-tasks").dropdown("get value");
   var taskOwner = "20062563695";
   var taskBillStatus = "Non Billable";
   var taskHours = $("#frm-timelog").form("get value", "duration");
@@ -421,12 +422,3 @@ $("input[name=duration]").blur(function(){
   // Call validation to make invalid input visible
   $("#frm-timelog").form("validate field", "duration");
 });
-
-$('#dropdown-tasks')
-  .dropdown({
-    onChange: function(value, text, $selectedItem) {
-      console.log(value);
-      console.log(text);
-    }
-  })
-;
