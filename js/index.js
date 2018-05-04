@@ -41,7 +41,12 @@ $(function() {
     selectConstraint:{
       start: '00:00',
       end: '24:00'
-    }, 
+    },
+    businessHours: {
+      dow: [ 1, 2, 3, 4, 5 ], // Monday - Friday
+      start: '07:00',
+      end: '18:00'
+    },
     eventSources: [
     {
       id: "Zoho",
