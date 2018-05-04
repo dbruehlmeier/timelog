@@ -38,6 +38,10 @@ $(function() {
       // TODO: Set focus on task dropdown
       $("#dropdown-tasks").focus();
     },
+    selectConstraint:{
+      start: '00:00',
+      end: '23:59'
+    }, 
     eventSources: [
     {
       id: "Zoho",
