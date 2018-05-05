@@ -221,7 +221,7 @@ function getZohoTimelogsForProject(zohoProjectId, zohoProjectName) {
     }
   } else {
     // Get timelogs from the ZOHO API
-    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/logs/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", users_list: "20062563695", view_type: "month", date: "05-01-2018", bill_status: "all". component_type: "task" }, function( data ) {
+    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/logs/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", users_list: "20062563695", view_type: "month", date: "05-01-2018", bill_status: "all", component_type: "task" }, function( data ) {
       // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(storageId, JSON.stringify(data));
       if (data) {
