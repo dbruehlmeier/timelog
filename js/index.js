@@ -102,13 +102,14 @@ $("#btn-add").click(function() {
 
 // Get projects
 $("#btn-refresh").click(function() {
-  getTaskEntries();
+  getTaskEntries(getTasksFromZoho);
 });
 
-// Post a test time log to Zoho
-$("#btn-put").click(function() {
-  postTimelogToZoho();
+// Get time entries
+$("#btn-get").click(function() {
+  getTimeEntries();
 });
+
 
 $("#frm-timelog").submit(function() {
   var taskDateObj = moment($("#frm-timelog").form("get value", "date"), "DD.MM.YYYY");
@@ -154,7 +155,7 @@ function alertSuccess( data ) {
 }
 
 // Gets all entries in the "Task" Dropdown. Tries to fetch from cache first, in order to avoid rate limits in Zoho
-function getTaskEntries() {
+function getTaskEntries(prjectCallback) {
   var currentProject = localStorage.getItem(zohoProjectsKey);
   
   // This is the case of HTTP 204, when there are no projects. Nothing to do, return.
@@ -166,7 +167,7 @@ function getTaskEntries() {
     // Get projects from cache
     try {
       zohoProjects = JSON.parse(currentProject);
-      getTasksFromZoho(zohoProjects);
+      prjectCallback(zohoProjects);
     } catch (e) {
       console.log(e.name + ': ' + e.message);
       console.log(JSON.stringify(currentProject));
@@ -177,7 +178,7 @@ function getTaskEntries() {
       // Always cache the response to prevent further API calls, but only go on if there was data.
       localStorage.setItem(zohoProjectsKey, JSON.stringify(data));
       if (data) {
-        getTasksFromZoho(data);
+        prjectCallback(data);
       }
     });
   }
