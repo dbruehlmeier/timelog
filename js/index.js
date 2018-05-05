@@ -51,20 +51,12 @@ $(function() {
     {
       id: "Zoho",
       editable: true,
-      events: [
-        {
-          title  : "Weekly Call",
-          task   : "Tessinerplatz 7",
-          start  : "2018-04-12T10:00:00",
-          end    : "2018-04-12T12:00:00"
-        },
-        {
-          title  : "Tactical",
-          task   : "Behind the scenes",
-          start  : "2018-04-12",
-          allDay : true
-        }
-      ]
+      events: function(start, end, timezone, callback) {
+      	console.log(start);
+      	console.log(end);
+      	console.log(timezone);
+      	console.log(callback);
+      }
     },
     {
       id: "GCal",
