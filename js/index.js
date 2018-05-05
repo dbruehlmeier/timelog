@@ -108,7 +108,7 @@ $("#btn-refresh").click(function() {
 
 // Get time entries
 $("#btn-get").click(function() {
-  getTimeEntries(getTimelogsFromZoho);
+  getTaskEntries(getTimelogsFromZoho);
 });
 
 
