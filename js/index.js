@@ -94,6 +94,7 @@ const regexDate = /^\d{1,2}[.]\d{1,2}[.](?:\d{4}|\d{2})$/;
 const zohoBaseUrl = "https://time.villageoffice.ch/zoho-api/portal/villageoffice/";
 const zohoProjectsKey = "zoho-projects";
 const zohoTaskKey = "zoho-task";
+const zohoTimelogKey = "zoho-timelog";
 var taskListDropdown = [];
 
 $("#btn-add").click(function() {
@@ -107,7 +108,7 @@ $("#btn-refresh").click(function() {
 
 // Get time entries
 $("#btn-get").click(function() {
-  getTimeEntries();
+  getTimeEntries(getTimelogsFromZoho);
 });
 
 
@@ -189,6 +190,46 @@ function getTasksFromZoho(zohoProjectsArray) {
   zohoProjectsArray.projects.forEach(function(element) {
     getZohoTasksForProject(element.id_string, element.name);
   });
+}
+
+// Iterates over the list of Zoho projects and gets the timelogs for each
+function getTimelogsFromZoho(zohoProjectsArray) {
+  zohoProjectsArray.projects.forEach(function(element) {
+    getZohoTimelogsForProject(element.id_string, element.name);
+  });
+}
+
+function getZohoTimelogsForProject(zohoProjectId, zohoProjectName) {
+  if (!zohoProjectId) { return; }
+  var storageId = zohoTimelogKey+"."+zohoProjectId;
+  var currentMonth = localStorage.getItem(storageId);
+  
+  // This is the case of HTTP 204, when there are no timlogs for this project. Nothing to do, return.
+  if (currentMonth == "undefined") {
+    return;    
+  }
+  
+  if(currentMonth) {
+    // Get timelogs from cache
+    try {
+      zohoTimelogs = JSON.parse(currentMonth);
+      // TODO: Update Events
+      //updateTaskList(zohoTasks, zohoProjectName, zohoProjectId);
+    } catch (e) {
+      console.log(e.name + ": " + e.message);
+      console.log("storageId: " + storageId);
+    }
+  } else {
+    // Get timelogs from the ZOHO API
+    $.getJSON( zohoBaseUrl+"projects/"+zohoProjectId+"/logs/", { authtoken: "bf97913da8a83b9bbccaa87e66242727", users_list: "20062563695", view_type: "month", date: "05-01-2018", bill_status: "all". component_type: "task" }, function( data ) {
+      // Always cache the response to prevent further API calls, but only go on if there was data.
+      localStorage.setItem(storageId, JSON.stringify(data));
+      if (data) {
+        // TODO: Update Events
+        //updateTaskList(zohoTasks, zohoProjectName, zohoProjectId);
+      }
+    });
+  }
 }
 
 function getZohoTasksForProject(zohoProjectId, zohoProjectName) {
